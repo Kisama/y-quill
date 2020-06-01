@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/y-js/y-quill#readme",
   "dependencies": {
-    "lib0": "0.2.22"
+    "lib0": "^0.2.26"
   },
   "peerDependencies": {
     "yjs": "^13.0.0",

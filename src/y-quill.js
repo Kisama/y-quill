@@ -58,7 +58,7 @@ export class QuillBinding {
    * @param {any} quill
    * @param {Awareness} [awareness]
    */
-  constructor (type, quill, awareness) {
+  constructor(type, quill, awareness, ignoreNewLine = false) {
     const mux = createMutex()
     const doc = /** @type {Y.Doc} */ (type.doc)
     this.mux = mux
@@ -115,7 +115,7 @@ export class QuillBinding {
           }
         })
         mux(() => {
-          type.applyDelta(ops)
+          ignoreNewLine ? type.applyDelta(normQuillDelta(delta).ops) : type.applyDelta(delta.ops);
         })
       }
       // always check selection
@@ -156,7 +156,8 @@ export class QuillBinding {
       awareness.on('change', this._awarenessChange)
     }
   }
-  destroy () {
+
+  destroy() {
     this.type.unobserve(this._typeObserver)
     this.quill.off(this._quillObserver)
     if (this.awareness) {
